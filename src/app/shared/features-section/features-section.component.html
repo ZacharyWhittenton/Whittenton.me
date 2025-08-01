@@ -1,0 +1,24 @@
+<section class="py-16" [class]="sectionClass">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16" *ngIf="title">
+        <h2 class="text-3xl font-bold text-gray-900 sm:text-4xl">
+          {{title}}
+        </h2>
+        <p class="mt-4 text-lg text-gray-600" *ngIf="subtitle">
+          {{subtitle}}
+        </p>
+      </div>
+  
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div *ngFor="let feature of features" class="text-center">
+          <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6"
+               [style.background-color]="feature.iconBg">
+            <div [innerHTML]="feature.icon"></div>
+          </div>
+          <h3 class="text-xl font-semibold text-gray-900 mb-4">{{feature.title}}</h3>
+          <p class="text-gray-600">{{feature.description}}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  

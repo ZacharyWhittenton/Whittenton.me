@@ -1,0 +1,160 @@
+<!-- Hero Section -->
+<app-hero-section
+  title="Renter's Insurance"
+  subtitle="Made Simple"
+  description="Protect your stuff for as little as $5/month. Get covered in 90 seconds."
+  ctaText="GET A QUOTE"
+  secondaryCtaText="See how it works"
+  [illustration]="rentersIllustration">
+</app-hero-section>
+
+<!-- What's Covered Section -->
+<section class="py-16 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl font-bold text-gray-900 sm:text-4xl">
+        What's Covered?
+      </h2>
+      <p class="mt-4 text-lg text-gray-600">
+        Lemonade covers your belongings both at home and everywhere else.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <!-- Personal Property -->
+      <div class="text-center">
+        <div class="mx-auto w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+          <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"></path>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3a2 2 0 012-2h4a2 2 0 012 2v4m-6 4l2 2 4-4"></path>
+          </svg>
+        </div>
+        <h3 class="text-lg font-semibold text-gray-900 mb-2">Personal Property</h3>
+        <p class="text-gray-600 text-sm">Clothes, electronics, furniture, and everything else you own</p>
+      </div>
+
+      <!-- Liability -->
+      <div class="text-center">
+        <div class="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
+          <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.031 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+          </svg>
+        </div>
+        <h3 class="text-lg font-semibold text-gray-900 mb-2">Liability</h3>
+        <p class="text-gray-600 text-sm">Protection if someone gets hurt in your place or you damage their stuff</p>
+      </div>
+
+      <!-- Additional Living Expenses -->
+      <div class="text-center">
+        <div class="mx-auto w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mb-4">
+          <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+          </svg>
+        </div>
+        <h3 class="text-lg font-semibold text-gray-900 mb-2">Additional Living</h3>
+        <p class="text-gray-600 text-sm">Hotel costs if your place becomes unlivable</p>
+      </div>
+
+      <!-- Medical Payments -->
+      <div class="text-center">
+        <div class="mx-auto w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-4">
+          <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+          </svg>
+        </div>
+        <h3 class="text-lg font-semibold text-gray-900 mb-2">Medical Payments</h3>
+        <p class="text-gray-600 text-sm">Medical bills if a guest gets injured at your place</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Pricing Section -->
+<section class="py-16 bg-gray-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center">
+      <h2 class="text-3xl font-bold text-gray-900 sm:text-4xl mb-8">
+        Starting at $5/month
+      </h2>
+      <p class="text-lg text-gray-600 mb-12 max-w-2xl mx-auto">
+        Most people pay around $12-15/month for comprehensive renters insurance.
+        Coverage starting at $5/month is available for basic personal property protection.
+      </p>
+
+      <div class="bg-white rounded-lg shadow-lg p-8 max-w-md mx-auto">
+        <div class="text-center">
+          <div class="text-4xl font-bold text-gray-900 mb-2">$12</div>
+          <div class="text-gray-500 mb-6">per month (average)</div>
+
+          <ul class="text-left space-y-3 mb-8">
+            <li class="flex items-center">
+              <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+              </svg>
+              <span class="text-gray-700">$30K personal property</span>
+            </li>
+            <li class="flex items-center">
+              <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+              </svg>
+              <span class="text-gray-700">$100K liability</span>
+            </li>
+            <li class="flex items-center">
+              <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+              </svg>
+              <span class="text-gray-700">$5K additional living</span>
+            </li>
+            <li class="flex items-center">
+              <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+              </svg>
+              <span class="text-gray-700">Worldwide coverage</span>
+            </li>
+          </ul>
+
+          <button class="lemonade-button w-full">
+            Get Your Quote
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Process Section -->
+<section class="py-16 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl font-bold text-gray-900 sm:text-4xl">
+        Get Covered in 3 Steps
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="text-center">
+        <div class="w-12 h-12 bg-lemonade-pink text-white rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">
+          1
+        </div>
+        <h3 class="text-xl font-semibold text-gray-900 mb-4">Tell us about yourself</h3>
+        <p class="text-gray-600">Answer a few questions about your living situation and belongings.</p>
+      </div>
+
+      <div class="text-center">
+        <div class="w-12 h-12 bg-lemonade-pink text-white rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">
+          2
+        </div>
+        <h3 class="text-xl font-semibold text-gray-900 mb-4">Get instant quote</h3>
+        <p class="text-gray-600">See your price and coverage options in real-time.</p>
+      </div>
+
+      <div class="text-center">
+        <div class="w-12 h-12 bg-lemonade-pink text-white rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">
+          3
+        </div>
+        <h3 class="text-xl font-semibold text-gray-900 mb-4">You're covered</h3>
+        <p class="text-gray-600">Purchase your policy and get your documents instantly.</p>
+      </div>
+    </div>
+  </div>
+</section>
