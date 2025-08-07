@@ -31,4 +31,17 @@ export class AuthService {
   getToken(): string | null {
     return localStorage.getItem(this.TOKEN_KEY);
   }
+
+  getUserRole(): string | null {
+  const token = this.getToken();
+  if (!token) return null;
+
+  // Simulate decoding (replace with real decoding if using JWT)
+  const payload = JSON.parse(atob(token.split('.')[1])); // this assumes JWT format
+  return payload.role || null;
+}
+
+isAdmin(): boolean {
+  return this.getUserRole() === 'admin';
+}
 }

@@ -1,8 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AdminComponent } from './admin.component';
+import { AdminComponent } from './components/admin/admin.component';
+import { AdminGuard } from 'src/app/core/guards/admin.guard';
 
-const routes: Routes = [{ path: '', component: AdminComponent }];
+const routes: Routes = [
+  {
+    path: '',
+    component: AdminComponent,
+    canActivate: [AdminGuard]
+  }
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
