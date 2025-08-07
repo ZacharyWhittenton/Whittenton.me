@@ -1,14 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { BlogComponent } from './blog.component';
-import { AuthGuard } from 'src/app/core/guards/auth.guard'; // ✅ Import the guard
+import { BlogListComponent } from './components/blog-list/blog-list.component';
+import { BlogDetailComponent } from './components/blog-detail/blog-detail.component';
+import { BlogEditorComponent } from './components/blog-editor/blog-editor.component';
+import { AuthGuard } from 'src/app/core/guards/auth.guard';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: BlogComponent,
-    canActivate: [AuthGuard]
-  }
+  { path: '', component: BlogListComponent },
+  { path: 'post/:id', component: BlogDetailComponent },
+  { path: 'edit/:id', component: BlogEditorComponent, canActivate: [AuthGuard] },
+  { path: 'create', component: BlogEditorComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({
