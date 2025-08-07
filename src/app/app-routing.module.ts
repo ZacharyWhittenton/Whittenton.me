@@ -15,6 +15,10 @@ const routes: Routes = [
   { path: 'projects', component: ProjectsComponent },
   { path: 'portfolio', component: PortfolioComponent },
   { path: 'contact', component: ContactComponent },
+  { path: 'auth', loadChildren: () => import('./features/auth/auth.module').then(m => m.AuthModule) },
+  { path: 'blog', loadChildren: () => import('./features/blog/blog.module').then(m => m.BlogModule) },
+  { path: 'admin', loadChildren: () => import('./features/admin/admin.module').then(m => m.AdminModule) },
+  { path: 'scheduler', loadChildren: () => import('./features/scheduler/scheduler.module').then(m => m.SchedulerModule) },
   { path: '**', redirectTo: '' }
 ];
 
