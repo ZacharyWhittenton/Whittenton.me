@@ -1,1 +1,6 @@
-<p>blog-detail works!</p>
+<div class="max-w-3xl mx-auto mt-10">
+  <ng-container *ngIf="post">
+    <h2 class="text-3xl font-bold">{{ post.title }}</h2>
+    <p class="mt-4 text-gray-800 whitespace-pre-line">{{ post.content }}</p>
+  </ng-container>
+</div>

@@ -1,1 +1,18 @@
-<p>blog-list works!</p>
+<div class="max-w-3xl mx-auto mt-10 space-y-4">
+  <h2 class="text-3xl font-bold">Blog Posts</h2>
+
+  <div *ngIf="auth.isAuthenticated()" class="mb-4">
+    <button (click)="goToCreate()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+      + Create New Post
+    </button>
+  </div>
+
+  <div *ngFor="let post of posts" class="p-4 bg-white shadow rounded space-y-2">
+    <h3 class="text-xl font-semibold">{{ post.title }}</h3>
+    <p class="text-gray-700 truncate">{{ post.content }}</p>
+    <div class="flex gap-4 text-sm text-blue-600">
+      <a [routerLink]="['/blog/post', post.id]">Read</a>
+      <a *ngIf="auth.isAuthenticated()" [routerLink]="['/blog/edit', post.id]">Edit</a>
+    </div>
+  </div>
+</div>

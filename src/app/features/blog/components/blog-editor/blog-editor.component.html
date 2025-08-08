@@ -1,1 +1,19 @@
-<p>blog-editor works!</p>
+<div class="max-w-2xl mx-auto mt-10 p-6 bg-white rounded shadow space-y-4">
+  <h2 class="text-2xl font-bold">{{ editing ? 'Edit Post' : 'Create Post' }}</h2>
+
+  <form [formGroup]="postForm" (ngSubmit)="onSubmit()" class="space-y-4">
+    <div>
+      <label>Title</label>
+      <input formControlName="title" class="w-full border p-2 rounded" />
+    </div>
+
+    <div>
+      <label>Content</label>
+      <textarea formControlName="content" rows="6" class="w-full border p-2 rounded"></textarea>
+    </div>
+
+    <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+      {{ editing ? 'Update' : 'Create' }}
+    </button>
+  </form>
+</div>
