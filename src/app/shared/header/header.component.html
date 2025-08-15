@@ -1,110 +1,124 @@
 <header class="bg-white shadow-sm sticky top-0 z-50">
-    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between items-center h-16">
-        <!-- Logo -->
-        <div class="flex-shrink-0">
-          <a routerLink="/" class="text-3xl font-script text-gray-900 hover:text-lemonade-pink transition-colors">
-            Accelerator 2
-          </a>
-        </div>
-  
-        <!-- Desktop Navigation -->
-        <div class="hidden md:block">
-          <div class="ml-10 flex items-baseline space-x-8">
-            <a routerLink="/about"
-               routerLinkActive="text-lemonade-pink"
-               class="text-gray-700 hover:text-lemonade-pink px-3 py-2 text-sm font-medium transition-colors">
-              About
-            </a>
-            <a routerLink="/services"
-               routerLinkActive="text-lemonade-pink"
-               class="text-gray-700 hover:text-lemonade-pink px-3 py-2 text-sm font-medium transition-colors">
-              Services
-            </a>
-            <a routerLink="/projects"
-               routerLinkActive="text-lemonade-pink"
-               class="text-gray-700 hover:text-lemonade-pink px-3 py-2 text-sm font-medium transition-colors">
-              Projects
-            </a>
-            <a routerLink="/portfolio"
-               routerLinkActive="text-lemonade-pink"
-               class="text-gray-700 hover:text-lemonade-pink px-3 py-2 text-sm font-medium transition-colors">
-              Portfolio
-            </a>
-            <a routerLink="/contact"
-               routerLinkActive="text-lemonade-pink"
-               class="text-gray-700 hover:text-lemonade-pink px-3 py-2 text-sm font-medium transition-colors">
-              Contact
-            </a>
-          </div>
-        </div>
-  
-        <!-- Login -->
-        <div class="hidden md:block">
-          <a href="#" class="text-gray-700 hover:text-lemonade-pink px-3 py-2 text-sm font-medium transition-colors">
-            My Account
-          </a>
-        </div>
-  
-        <!-- Mobile menu button -->
-        <div class="md:hidden">
-          <button (click)="toggleMobileMenu()"
-                  class="bg-gray-50 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-lemonade-pink">
-            <svg class="h-6 w-6" [class.hidden]="isMobileMenuOpen" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-            </svg>
-            <svg class="h-6 w-6" [class.hidden]="!isMobileMenuOpen" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-            </svg>
-          </button>
-        </div>
+  <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
+      <!-- Logo -->
+      <div class="flex-shrink-0">
+        <a routerLink="/" class="text-3xl font-script text-gray-900 hover:text-lemonade-pink transition-colors">
+          Accelerator 2
+        </a>
       </div>
-  
-      <!-- Mobile menu -->
-      <div class="md:hidden" [class.hidden]="!isMobileMenuOpen">
-        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t">
-          <a routerLink="/renters"
+
+      <!-- Desktop Navigation -->
+      <div class="hidden md:block">
+        <div class="ml-10 flex items-baseline space-x-8">
+          <a routerLink="/about"
              routerLinkActive="text-lemonade-pink"
-             (click)="closeMobileMenu()"
-             class="text-gray-700 hover:text-lemonade-pink block px-3 py-2 text-base font-medium">
-            Renters
+             class="text-gray-700 hover:text-lemonade-pink px-3 py-2 text-sm font-medium transition-colors">
+            About
           </a>
-          <a routerLink="/homeowners"
+          <a routerLink="/services"
              routerLinkActive="text-lemonade-pink"
-             (click)="closeMobileMenu()"
-             class="text-gray-700 hover:text-lemonade-pink block px-3 py-2 text-base font-medium">
-            Homeowners
+             class="text-gray-700 hover:text-lemonade-pink px-3 py-2 text-sm font-medium transition-colors">
+            Services
           </a>
-          <a routerLink="/car"
+          <a routerLink="/projects"
              routerLinkActive="text-lemonade-pink"
-             (click)="closeMobileMenu()"
-             class="text-gray-700 hover:text-lemonade-pink block px-3 py-2 text-base font-medium">
-            Car
+             class="text-gray-700 hover:text-lemonade-pink px-3 py-2 text-sm font-medium transition-colors">
+            Projects
           </a>
-          <a routerLink="/pet"
+          <a routerLink="/portfolio"
              routerLinkActive="text-lemonade-pink"
-             (click)="closeMobileMenu()"
-             class="text-gray-700 hover:text-lemonade-pink block px-3 py-2 text-base font-medium">
-            Pet
+             class="text-gray-700 hover:text-lemonade-pink px-3 py-2 text-sm font-medium transition-colors">
+            Portfolio
           </a>
-          <a routerLink="/life"
+          <!-- New Blog link -->
+          <a routerLink="/blog"
              routerLinkActive="text-lemonade-pink"
-             (click)="closeMobileMenu()"
-             class="text-gray-700 hover:text-lemonade-pink block px-3 py-2 text-base font-medium">
-            Life
+             [routerLinkActiveOptions]="{ exact: false }"
+             class="text-gray-700 hover:text-lemonade-pink px-3 py-2 text-sm font-medium transition-colors">
+            Blog
           </a>
-          <a href="#"
-             (click)="closeMobileMenu()"
-             class="text-gray-700 hover:text-lemonade-pink block px-3 py-2 text-base font-medium">
-            Giveback
-          </a>
-          <a href="#"
-             (click)="closeMobileMenu()"
-             class="text-gray-700 hover:text-lemonade-pink block px-3 py-2 text-base font-medium">
-            My Account
+          <a routerLink="/contact"
+             routerLinkActive="text-lemonade-pink"
+             class="text-gray-700 hover:text-lemonade-pink px-3 py-2 text-sm font-medium transition-colors">
+            Contact
           </a>
         </div>
       </div>
-    </nav>
-  </header>
-  
+
+      <!-- Login -->
+      <div class="hidden md:block">
+        <a href="#" class="text-gray-700 hover:text-lemonade-pink px-3 py-2 text-sm font-medium transition-colors">
+          My Account
+        </a>
+      </div>
+
+      <!-- Mobile menu button -->
+      <div class="md:hidden">
+        <button (click)="toggleMobileMenu()"
+                class="bg-gray-50 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-lemonade-pink">
+          <svg class="h-6 w-6" [class.hidden]="isMobileMenuOpen" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+          <svg class="h-6 w-6" [class.hidden]="!isMobileMenuOpen" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div class="md:hidden" [class.hidden]="!isMobileMenuOpen">
+      <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t">
+        <a routerLink="/renters"
+           routerLinkActive="text-lemonade-pink"
+           (click)="closeMobileMenu()"
+           class="text-gray-700 hover:text-lemonade-pink block px-3 py-2 text-base font-medium">
+          Renters
+        </a>
+        <a routerLink="/homeowners"
+           routerLinkActive="text-lemonade-pink"
+           (click)="closeMobileMenu()"
+           class="text-gray-700 hover:text-lemonade-pink block px-3 py-2 text-base font-medium">
+          Homeowners
+        </a>
+        <a routerLink="/car"
+           routerLinkActive="text-lemonade-pink"
+           (click)="closeMobileMenu()"
+           class="text-gray-700 hover:text-lemonade-pink block px-3 py-2 text-base font-medium">
+          Car
+        </a>
+        <a routerLink="/pet"
+           routerLinkActive="text-lemonade-pink"
+           (click)="closeMobileMenu()"
+           class="text-gray-700 hover:text-lemonade-pink block px-3 py-2 text-base font-medium">
+          Pet
+        </a>
+        <a routerLink="/life"
+           routerLinkActive="text-lemonade-pink"
+           (click)="closeMobileMenu()"
+           class="text-gray-700 hover:text-lemonade-pink block px-3 py-2 text-base font-medium">
+          Life
+        </a>
+        <a href="#"
+           (click)="closeMobileMenu()"
+           class="text-gray-700 hover:text-lemonade-pink block px-3 py-2 text-base font-medium">
+          Giveback
+        </a>
+        <!-- New Blog link -->
+        <a routerLink="/blog"
+           routerLinkActive="text-lemonade-pink"
+           [routerLinkActiveOptions]="{ exact: false }"
+           (click)="closeMobileMenu()"
+           class="text-gray-700 hover:text-lemonade-pink block px-3 py-2 text-base font-medium">
+          Blog
+        </a>
+        <a href="#"
+           (click)="closeMobileMenu()"
+           class="text-gray-700 hover:text-lemonade-pink block px-3 py-2 text-base font-medium">
+          My Account
+        </a>
+      </div>
+    </div>
+  </nav>
+</header>
