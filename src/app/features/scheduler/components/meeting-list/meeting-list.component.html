@@ -1,1 +1,46 @@
-<p>meeting-list works!</p>
+<div class="rounded-xl border p-4">
+    <h2 class="text-lg font-semibold mb-3">{{ title }}</h2>
+  
+    <div *ngIf="!meetings.length" class="text-sm text-gray-600">No meetings.</div>
+  
+    <ul class="space-y-3" *ngIf="meetings.length">
+      <li *ngFor="let m of meetings" class="border rounded-lg p-3">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="font-medium">
+              {{ m.title }}
+              <span class="text-xs ml-2 px-2 py-0.5 rounded-full"
+                    [class.bg-green-100]="m.status === 'scheduled'"
+                    [class.text-green-800]="m.status === 'scheduled'"
+                    [class.bg-gray-200]="m.status === 'cancelled'"
+                    [class.text-gray-800]="m.status === 'cancelled'">
+                {{ m.status }}
+              </span>
+            </p>
+            <p class="text-xs text-gray-500">
+              {{ m.start | date:'medium' }} – {{ m.end | date:'shortTime' }}
+            </p>
+            <p class="text-xs text-gray-600" *ngIf="m.location">📍 {{ m.location }}</p>
+            <a *ngIf="m.onlineLink" [href]="m.onlineLink" target="_blank" rel="noopener" class="text-xs underline">
+              Join link
+            </a>
+            <p class="text-xs text-gray-600 mt-1">
+              With: {{ m.participants.join(', ') }}
+            </p>
+          </div>
+  
+          <div class="flex items-center gap-2">
+            <button type="button"
+                    (click)="cancel(m)"
+                    [disabled]="m.status !== 'scheduled'"
+                    class="rounded-lg border px-3 py-1 text-sm hover:bg-gray-50">
+              Cancel
+            </button>
+          </div>
+        </div>
+  
+        <p class="text-sm mt-2" *ngIf="m.description">{{ m.description }}</p>
+      </li>
+    </ul>
+  </div>
+  

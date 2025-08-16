@@ -10,6 +10,7 @@ import { ContactComponent } from './pages/contact/contact.component';
 
 import { AuthGuard } from './core/guards/auth.guard';
 import { AdminGuard } from './core/guards/admin.guard';
+import { RoleGuard } from './core/guards/role.guard';
 
 const routes: Routes = [
   // Public pages
@@ -28,11 +29,12 @@ const routes: Routes = [
   { path: 'auth', loadChildren: () => import('./features/auth/auth.module').then(m => m.AuthModule) },
   { path: 'account', canActivate: [AuthGuard], loadChildren: () => import('./features/account/account.module').then(m => m.AccountModule) },
 
-  // Members-only
+  // Members-only features
   { path: 'blog', loadChildren: () => import('./features/blog/blog.module').then(m => m.BlogModule) },
   {
     path: 'scheduler',
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, RoleGuard],
+    data: { roles: ['Admin', 'Member'] }, // only signed-in Admin/Member may access
     loadChildren: () => import('./features/scheduler/scheduler.module').then(m => m.SchedulerModule),
     runGuardsAndResolvers: 'always',
   },

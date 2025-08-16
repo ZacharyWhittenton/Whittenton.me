@@ -1,1 +1,74 @@
-<p>meeting-form works!</p>
+<div class="rounded-xl border p-4">
+    <h2 class="text-lg font-semibold mb-3">Schedule a meeting</h2>
+  
+    <form [formGroup]="form" (ngSubmit)="submit()" class="grid gap-4 md:grid-cols-2" novalidate>
+      <div class="md:col-span-2">
+        <label class="block text-sm font-medium mb-1">Title</label>
+        <input type="text" class="w-full border rounded-lg px-3 py-2" formControlName="title" />
+        <div class="text-sm text-red-600" *ngIf="form.controls.title.touched && form.controls.title.invalid">
+          Title is required (min 3 chars).
+        </div>
+      </div>
+  
+      <div>
+        <label class="block text-sm font-medium mb-1">Date</label>
+        <input type="date" class="w-full border rounded-lg px-3 py-2" formControlName="date" />
+      </div>
+  
+      <div>
+        <label class="block text-sm font-medium mb-1">Start</label>
+        <input type="time" class="w-full border rounded-lg px-3 py-2" formControlName="startTime" />
+      </div>
+  
+      <div>
+        <label class="block text-sm font-medium mb-1">End</label>
+        <input type="time" class="w-full border rounded-lg px-3 py-2" formControlName="endTime" />
+      </div>
+  
+      <div>
+        <label class="block text-sm font-medium mb-1">Location</label>
+        <input type="text" class="w-full border rounded-lg px-3 py-2" formControlName="location" placeholder="e.g., Room A" />
+      </div>
+  
+      <div>
+        <label class="block text-sm font-medium mb-1">Online link</label>
+        <input type="url" class="w-full border rounded-lg px-3 py-2" formControlName="onlineLink" placeholder="https://…" />
+      </div>
+  
+      <div class="md:col-span-2">
+        <label class="block text-sm font-medium mb-1">Participants</label>
+        <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-2">
+          <label *ngFor="let u of users" class="flex items-center gap-2 text-sm border rounded-lg p-2">
+            <input
+              type="checkbox"
+              [value]="u.email"
+              [checked]="isSelected(u.email)"
+              (change)="onToggleParticipant(u.email, $event)"
+            />
+            <span>
+              {{ u.name }}
+              <span class="text-gray-500">({{ u.email }})</span>
+            </span>
+          </label>
+        </div>
+        <p class="text-xs text-gray-500 mt-1">You’re automatically included when creating a meeting.</p>
+      </div>
+  
+      <div class="md:col-span-2">
+        <label class="block text-sm font-medium mb-1">Description</label>
+        <textarea rows="3" class="w-full border rounded-lg px-3 py-2" formControlName="description"></textarea>
+      </div>
+  
+      <div *ngIf="error" class="md:col-span-2 rounded-md border border-red-200 bg-red-50 p-3 text-red-700">
+        {{ error }}
+      </div>
+      <div *ngIf="success" class="md:col-span-2 rounded-md border border-green-200 bg-green-50 p-3 text-green-800">
+        {{ success }}
+      </div>
+  
+      <div class="md:col-span-2">
+        <button type="submit" class="rounded-lg bg-black text-white px-4 py-2">Create meeting</button>
+      </div>
+    </form>
+  </div>
+  

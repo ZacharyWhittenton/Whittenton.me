@@ -38,6 +38,15 @@
              class="text-gray-700 hover:text-lemonade-pink px-3 py-2 text-sm font-medium transition-colors">
             Blog
           </a>
+
+          <!-- Scheduler link (only Admin/Member) -->
+          <a *ngIf="auth.isLoggedIn && auth.hasAnyRole(['Admin','Member'])"
+             routerLink="/scheduler"
+             routerLinkActive="text-lemonade-pink"
+             class="text-gray-700 hover:text-lemonade-pink px-3 py-2 text-sm font-medium transition-colors">
+            Scheduler
+          </a>
+
           <a routerLink="/contact"
              routerLinkActive="text-lemonade-pink"
              class="text-gray-700 hover:text-lemonade-pink px-3 py-2 text-sm font-medium transition-colors">
@@ -102,7 +111,6 @@
     <!-- Mobile menu -->
     <div class="md:hidden" [class.hidden]="!isMobileMenuOpen">
       <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t">
-        <!-- Keep your existing mobile links -->
         <a routerLink="/renters"
            routerLinkActive="text-lemonade-pink"
            (click)="closeMobileMenu()"
@@ -145,6 +153,16 @@
            class="text-gray-700 hover:text-lemonade-pink block px-3 py-2 text-base font-medium">
           Blog
         </a>
+
+        <!-- Scheduler link (only Admin/Member) -->
+        <a *ngIf="auth.isLoggedIn && auth.hasAnyRole(['Admin','Member'])"
+           routerLink="/scheduler"
+           routerLinkActive="text-lemonade-pink"
+           (click)="closeMobileMenu()"
+           class="text-gray-700 hover:text-lemonade-pink block px-3 py-2 text-base font-medium">
+          Scheduler
+        </a>
+
         <a routerLink="/contact"
            routerLinkActive="text-lemonade-pink"
            (click)="closeMobileMenu()"

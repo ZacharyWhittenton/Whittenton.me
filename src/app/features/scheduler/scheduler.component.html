@@ -1,1 +1,35 @@
-<p>scheduler works!</p>
+<div class="mx-auto max-w-7xl p-6 grid gap-6 lg:grid-cols-3">
+    <!-- Main -->
+    <section class="lg:col-span-2 space-y-6">
+      <h1 class="text-2xl font-semibold">Scheduler</h1>
+  
+      <!-- Create form -->
+      <app-meeting-form (created)="reload()" (updated)="reload()"></app-meeting-form>
+  
+      <!-- My meetings -->
+      <app-meeting-list
+        [title]="'My Meetings'"
+        [meetings]="meetingsForMe"
+        (refresh)="reload()"
+      ></app-meeting-list>
+    </section>
+  
+    <!-- Aside: Upcoming -->
+    <aside class="space-y-4">
+      <h2 class="text-lg font-semibold">Upcoming</h2>
+      <div *ngIf="!upcoming.length" class="text-sm text-gray-600">No upcoming meetings.</div>
+      <ul class="space-y-3" *ngIf="upcoming.length">
+        <li *ngFor="let m of upcoming" class="border rounded-lg p-3">
+          <p class="font-medium">{{ m.title }}</p>
+          <p class="text-xs text-gray-500">
+            {{ m.start | date:'medium' }} – {{ m.end | date:'shortTime' }}
+          </p>
+          <p class="text-xs text-gray-600" *ngIf="m.location">📍 {{ m.location }}</p>
+          <a *ngIf="m.onlineLink" [href]="m.onlineLink" target="_blank" rel="noopener" class="text-xs underline">
+            Join link
+          </a>
+        </li>
+      </ul>
+    </aside>
+  </div>
+  

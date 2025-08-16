@@ -1,13 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from '../../core/guards/auth.guard';
 import { SchedulerComponent } from './scheduler.component';
+import { AuthGuard } from '../../core/guards/auth.guard';
+import { RoleGuard } from '../../core/guards/role.guard';
 
 const routes: Routes = [
   {
     path: '',
-    canActivate: [AuthGuard],
     component: SchedulerComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { roles: ['Admin', 'Member'] }, // only these roles may access
   },
 ];
 
