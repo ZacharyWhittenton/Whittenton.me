@@ -12,25 +12,11 @@
       <!-- Desktop Navigation -->
       <div class="hidden md:block">
         <div class="ml-10 flex items-baseline space-x-8">
+          <!-- About -->
           <a routerLink="/about"
              routerLinkActive="text-lemonade-pink"
              class="text-gray-700 hover:text-lemonade-pink px-3 py-2 text-sm font-medium transition-colors">
             About
-          </a>
-          <a routerLink="/services"
-             routerLinkActive="text-lemonade-pink"
-             class="text-gray-700 hover:text-lemonade-pink px-3 py-2 text-sm font-medium transition-colors">
-            Services
-          </a>
-          <a routerLink="/projects"
-             routerLinkActive="text-lemonade-pink"
-             class="text-gray-700 hover:text-lemonade-pink px-3 py-2 text-sm font-medium transition-colors">
-            Projects
-          </a>
-          <a routerLink="/portfolio"
-             routerLinkActive="text-lemonade-pink"
-             class="text-gray-700 hover:text-lemonade-pink px-3 py-2 text-sm font-medium transition-colors">
-            Portfolio
           </a>
 
           <!-- Blog (visible to everyone) -->
@@ -41,18 +27,19 @@
             Blog
           </a>
 
+          <!-- Contact -->
+          <a routerLink="/contact"
+             routerLinkActive="text-lemonade-pink"
+             class="text-gray-700 hover:text-lemonade-pink px-3 py-2 text-sm font-medium transition-colors">
+            Contact
+          </a>
+
           <!-- Scheduler (only when logged in as Admin/Member) -->
           <a *ngIf="auth.isLoggedIn && auth.hasAnyRole(['Admin','Member'])"
              routerLink="/scheduler"
              routerLinkActive="text-lemonade-pink"
              class="text-gray-700 hover:text-lemonade-pink px-3 py-2 text-sm font-medium transition-colors">
             Scheduler
-          </a>
-
-          <a routerLink="/contact"
-             routerLinkActive="text-lemonade-pink"
-             class="text-gray-700 hover:text-lemonade-pink px-3 py-2 text-sm font-medium transition-colors">
-            Contact
           </a>
 
           <!-- Logged-in: My Account -->
@@ -110,45 +97,18 @@
       </div>
     </div>
 
-    <!-- Mobile menu -->
+    <!-- Mobile menu (mirrors desktop order: About -> Blog -> Contact) -->
     <div class="md:hidden" [class.hidden]="!isMobileMenuOpen">
       <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t">
-        <a routerLink="/renters"
+        <!-- About -->
+        <a routerLink="/about"
            routerLinkActive="text-lemonade-pink"
            (click)="closeMobileMenu()"
            class="text-gray-700 hover:text-lemonade-pink block px-3 py-2 text-base font-medium">
-          Renters
-        </a>
-        <a routerLink="/homeowners"
-           routerLinkActive="text-lemonade-pink"
-           (click)="closeMobileMenu()"
-           class="text-gray-700 hover:text-lemonade-pink block px-3 py-2 text-base font-medium">
-          Homeowners
-        </a>
-        <a routerLink="/car"
-           routerLinkActive="text-lemonade-pink"
-           (click)="closeMobileMenu()"
-           class="text-gray-700 hover:text-lemonade-pink block px-3 py-2 text-base font-medium">
-          Car
-        </a>
-        <a routerLink="/pet"
-           routerLinkActive="text-lemonade-pink"
-           (click)="closeMobileMenu()"
-           class="text-gray-700 hover:text-lemonade-pink block px-3 py-2 text-base font-medium">
-          Pet
-        </a>
-        <a routerLink="/life"
-           routerLinkActive="text-lemonade-pink"
-           (click)="closeMobileMenu()"
-           class="text-gray-700 hover:text-lemonade-pink block px-3 py-2 text-base font-medium">
-          Life
-        </a>
-        <a href="#"
-           (click)="closeMobileMenu()"
-           class="text-gray-700 hover:text-lemonade-pink block px-3 py-2 text-base font-medium">
-          Giveback
+          About
         </a>
 
+        <!-- Blog -->
         <a routerLink="/blog"
            routerLinkActive="text-lemonade-pink"
            [routerLinkActiveOptions]="{ exact: false }"
@@ -157,7 +117,15 @@
           Blog
         </a>
 
-        <!-- Scheduler (only when logged in as Admin/Member) -->
+        <!-- Contact -->
+        <a routerLink="/contact"
+           routerLinkActive="text-lemonade-pink"
+           (click)="closeMobileMenu()"
+           class="text-gray-700 hover:text-lemonade-pink block px-3 py-2 text-base font-medium">
+          Contact
+        </a>
+
+        <!-- Scheduler (only Admin/Member) -->
         <a *ngIf="auth.isLoggedIn && auth.hasAnyRole(['Admin','Member'])"
            routerLink="/scheduler"
            routerLinkActive="text-lemonade-pink"
@@ -166,14 +134,7 @@
           Scheduler
         </a>
 
-        <a routerLink="/contact"
-           routerLinkActive="text-lemonade-pink"
-           (click)="closeMobileMenu()"
-           class="text-gray-700 hover:text-lemonade-pink block px-3 py-2 text-base font-medium">
-          Contact
-        </a>
-
-        <!-- Logged-in: My Account -->
+        <!-- My Account (logged in) -->
         <a *ngIf="auth.isLoggedIn"
            routerLink="/account"
            routerLinkActive="text-lemonade-pink"
@@ -182,7 +143,7 @@
           My Account
         </a>
 
-        <!-- Admin-only -->
+        <!-- Admin -->
         <a *ngIf="auth.isAdmin()"
            routerLink="/admin"
            routerLinkActive="text-lemonade-pink"
@@ -191,7 +152,7 @@
           Admin
         </a>
 
-        <!-- Guest / Auth actions -->
+        <!-- Auth actions -->
         <ng-container *ngIf="!auth.isLoggedIn; else mobileLoggedIn">
           <a routerLink="/auth/login"
              (click)="closeMobileMenu()"
