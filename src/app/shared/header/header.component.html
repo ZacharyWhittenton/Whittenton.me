@@ -31,7 +31,7 @@
              class="text-gray-700 hover:text-lemonade-pink px-3 py-2 text-sm font-medium transition-colors">
             Portfolio
           </a>
-          <!-- New Blog link -->
+          <!-- Blog link -->
           <a routerLink="/blog"
              routerLinkActive="text-lemonade-pink"
              [routerLinkActiveOptions]="{ exact: false }"
@@ -43,14 +43,46 @@
              class="text-gray-700 hover:text-lemonade-pink px-3 py-2 text-sm font-medium transition-colors">
             Contact
           </a>
+
+          <!-- Logged-in: My Account -->
+          <a *ngIf="auth.isLoggedIn"
+             routerLink="/account"
+             routerLinkActive="text-lemonade-pink"
+             class="text-gray-700 hover:text-lemonade-pink px-3 py-2 text-sm font-medium transition-colors">
+            My Account
+          </a>
+
+          <!-- Admin-only -->
+          <a *ngIf="auth.isAdmin()"
+             routerLink="/admin"
+             routerLinkActive="text-lemonade-pink"
+             class="text-gray-700 hover:text-lemonade-pink px-3 py-2 text-sm font-medium transition-colors">
+            Admin
+          </a>
         </div>
       </div>
 
-      <!-- Login -->
+      <!-- Auth actions (desktop) -->
       <div class="hidden md:block">
-        <a href="login" class="text-gray-700 hover:text-lemonade-pink px-3 py-2 text-sm font-medium transition-colors">
-          Login
-        </a>
+        <!-- Guest -->
+        <ng-container *ngIf="!auth.isLoggedIn; else loggedInActions">
+          <a routerLink="/auth/login"
+             class="text-gray-700 hover:text-lemonade-pink px-3 py-2 text-sm font-medium transition-colors">
+            Login
+          </a>
+          <a routerLink="/auth/register"
+             class="text-gray-700 hover:text-lemonade-pink px-3 py-2 text-sm font-medium transition-colors">
+            Register
+          </a>
+        </ng-container>
+        <!-- Logged in -->
+        <ng-template #loggedInActions>
+          <button type="button"
+                  (click)="logout()"
+                  class="text-gray-700 hover:text-lemonade-pink px-3 py-2 text-sm font-medium transition-colors">
+            Logout
+          </button>
+        </ng-template>
       </div>
 
       <!-- Mobile menu button -->
@@ -70,6 +102,7 @@
     <!-- Mobile menu -->
     <div class="md:hidden" [class.hidden]="!isMobileMenuOpen">
       <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t">
+        <!-- Keep your existing mobile links -->
         <a routerLink="/renters"
            routerLinkActive="text-lemonade-pink"
            (click)="closeMobileMenu()"
@@ -105,7 +138,6 @@
            class="text-gray-700 hover:text-lemonade-pink block px-3 py-2 text-base font-medium">
           Giveback
         </a>
-        <!-- New Blog link -->
         <a routerLink="/blog"
            routerLinkActive="text-lemonade-pink"
            [routerLinkActiveOptions]="{ exact: false }"
@@ -113,11 +145,51 @@
            class="text-gray-700 hover:text-lemonade-pink block px-3 py-2 text-base font-medium">
           Blog
         </a>
-        <a href="/login"
+        <a routerLink="/contact"
+           routerLinkActive="text-lemonade-pink"
            (click)="closeMobileMenu()"
            class="text-gray-700 hover:text-lemonade-pink block px-3 py-2 text-base font-medium">
-          Login
+          Contact
         </a>
+
+        <!-- Logged-in: My Account -->
+        <a *ngIf="auth.isLoggedIn"
+           routerLink="/account"
+           routerLinkActive="text-lemonade-pink"
+           (click)="closeMobileMenu()"
+           class="text-gray-700 hover:text-lemonade-pink block px-3 py-2 text-base font-medium">
+          My Account
+        </a>
+
+        <!-- Admin-only -->
+        <a *ngIf="auth.isAdmin()"
+           routerLink="/admin"
+           routerLinkActive="text-lemonade-pink"
+           (click)="closeMobileMenu()"
+           class="text-gray-700 hover:text-lemonade-pink block px-3 py-2 text-base font-medium">
+          Admin
+        </a>
+
+        <!-- Guest / Auth actions -->
+        <ng-container *ngIf="!auth.isLoggedIn; else mobileLoggedIn">
+          <a routerLink="/auth/login"
+             (click)="closeMobileMenu()"
+             class="text-gray-700 hover:text-lemonade-pink block px-3 py-2 text-base font-medium">
+            Login
+          </a>
+          <a routerLink="/auth/register"
+             (click)="closeMobileMenu()"
+             class="text-gray-700 hover:text-lemonade-pink block px-3 py-2 text-base font-medium">
+            Register
+          </a>
+        </ng-container>
+        <ng-template #mobileLoggedIn>
+          <button type="button"
+                  (click)="logout()"
+                  class="text-left w-full text-gray-700 hover:text-lemonade-pink block px-3 py-2 text-base font-medium">
+            Logout
+          </button>
+        </ng-template>
       </div>
     </div>
   </nav>

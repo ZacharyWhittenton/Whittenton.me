@@ -25,7 +25,9 @@ export class AuthService {
   // ===== Session helpers =====
   get user(): User | null { return this._user$.getValue(); }
   get isLoggedIn(): boolean { return !!this.user; }
+  get roles(): string[] { return this.user?.roles ?? []; }            // <-- added
   isAdmin(): boolean { return this.hasRole('Admin'); }
+  isMember(): boolean { return this.hasRole('Member'); }              // <-- added
   hasRole(role: string): boolean { return !!this.user?.roles.includes(role); }
   hasAnyRole(required: string[]): boolean { return required.some(r => this.hasRole(r)); }
 
