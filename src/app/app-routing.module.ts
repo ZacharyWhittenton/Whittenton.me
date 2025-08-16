@@ -26,6 +26,7 @@ const routes: Routes = [
 
   // Feature areas (lazy)
   { path: 'auth', loadChildren: () => import('./features/auth/auth.module').then(m => m.AuthModule) },
+  { path: 'account', canActivate: [AuthGuard], loadChildren: () => import('./features/account/account.module').then(m => m.AccountModule) },
 
   // Members-only
   { path: 'blog', loadChildren: () => import('./features/blog/blog.module').then(m => m.BlogModule) },
