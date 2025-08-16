@@ -1,82 +1,86 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NonNullableFormBuilder, Validators } from '@angular/forms';
-import { BlogService } from '../../services/blog.service';
-
-interface BlogPostDto {
-  title: string;
-  content: string;
-}
-
-// Local structural type so we can satisfy the update() signature
-type BlogPost = BlogPostDto & { id: number };
+import { BlogService, Post } from '../../services/blog.service';
 
 @Component({
   selector: 'app-blog-editor',
-  templateUrl: './blog-editor.component.html'
+  templateUrl: './blog-editor.component.html',
+  styleUrls: ['./blog-editor.component.css'],
 })
 export class BlogEditorComponent implements OnInit {
-  readonly postForm = this.fb.group({
-    title: ['', Validators.required],
-    content: ['', Validators.required]
+  isEdit = false;
+  originalSlug?: string;
+
+  form = this.fb.group({
+    title: ['', [Validators.required, Validators.minLength(3)]],
+    slug: [''],
+    author: [''],
+    tags: [''],
+    body: ['', [Validators.required, Validators.minLength(5)]],
+    published: [true],
   });
 
-  editing = false;
-  postId: number | null = null;
-  saving = false;
-
   constructor(
-    private fb: NonNullableFormBuilder,
-    private blogService: BlogService,
+    private fb: FormBuilder,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private blog: BlogService
   ) {}
 
   ngOnInit(): void {
-    const idParam = this.route.snapshot.paramMap.get('id');
-    if (!idParam) return;
-
-    const parsedId = Number(idParam);
-    if (Number.isNaN(parsedId)) {
-      this.router.navigate(['/blog']);
-      return;
-    }
-
-    this.editing = true;
-    this.postId = parsedId;
-
-    this.blogService.get(this.postId).subscribe({
-      next: (post) => {
-        if (!post) {
-          this.router.navigate(['/blog']);
-          return;
-        }
-        this.postForm.patchValue({
-          title: (post as any).title ?? '',
-          content: (post as any).content ?? ''
+    const slug = this.route.snapshot.paramMap.get('slug');
+    if (slug) {
+      const p = this.blog.getBySlug(slug);
+      if (p) {
+        this.isEdit = true;
+        this.originalSlug = p.slug;
+        this.form.patchValue({
+          title: p.title,
+          slug: p.slug,
+          author: p.author || '',
+          tags: (p.tags || []).join(', '),
+          body: p.body,
+          published: p.published,
         });
-      },
-      error: () => this.router.navigate(['/blog'])
-    });
+      }
+    }
   }
 
-  onSubmit(): void {
-    if (this.postForm.invalid || this.saving) return;
+  save() {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+    const v = this.form.getRawValue();
+    const payload = {
+      title: v.title!.trim(),
+      slug: (v.slug || '').trim(),
+      author: (v.author || '').trim(),
+      tags: (v.tags || '')
+        .split(',')
+        .map(t => t.trim())
+        .filter(Boolean),
+      body: v.body!,
+      published: !!v.published,
+    };
 
-    this.saving = true;
-    const dto: BlogPostDto = this.postForm.getRawValue();
-
-    const req$ =
-      this.editing && this.postId !== null
-        // ✅ include id for update payload
-        ? this.blogService.update(this.postId, { id: this.postId, ...dto } as BlogPost)
-        : this.blogService.create(dto);
-
-    req$.subscribe({
-      next: () => this.router.navigate(['/blog']),
-      error: () => {
-        this.saving = false;
+    if (this.isEdit && this.originalSlug) {
+      const updated = this.blog.update(this.originalSlug, payload as Partial<Post>);
+      if (updated) {
+        this.router.navigate(['/blog', updated.slug]);
       }
-    });
+    } else {
+      const created = this.blog.create(payload as any);
+      this.router.navigate(['/blog', created.slug]);
+    }
+  }
+
+  cancel() {
+    if (this.isEdit && this.originalSlug) {
+      this.router.navigate(['/blog', this.originalSlug]);
+    } else {
+      this.router.navigate(['/blog']);
+    }
   }
 }

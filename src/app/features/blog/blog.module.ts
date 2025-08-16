@@ -1,25 +1,31 @@
-// src/app/features/blog/blog.module.ts
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 import { BlogRoutingModule } from './blog-routing.module';
 
-import { BlogEditorComponent } from './components/blog-editor/blog-editor.component';
+// Shell
+import { BlogComponent } from './blog.component';
+
+// Pages
 import { BlogListComponent } from './components/blog-list/blog-list.component';
 import { BlogDetailComponent } from './components/blog-detail/blog-detail.component';
+import { BlogEditorComponent } from './components/blog-editor/blog-editor.component';
 
 @NgModule({
   declarations: [
-    BlogEditorComponent,
+    BlogComponent,
     BlogListComponent,
-    BlogDetailComponent
+    BlogDetailComponent,
+    BlogEditorComponent,
   ],
   imports: [
     CommonModule,
-    FormsModule,          // <-- needed if your templates use [(ngModel)]
-    ReactiveFormsModule,  // <-- keep for editor forms
-    BlogRoutingModule     // <-- provides RouterModule.forChild(...)
-  ]
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule,
+    BlogRoutingModule,
+  ],
 })
 export class BlogModule {}

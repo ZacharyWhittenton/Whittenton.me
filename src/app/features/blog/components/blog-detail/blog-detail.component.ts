@@ -1,21 +1,38 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { BlogService, BlogPost } from '../../services/blog.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { BlogService, Post } from '../../services/blog.service';
 
 @Component({
   selector: 'app-blog-detail',
-  templateUrl: './blog-detail.component.html'
+  templateUrl: './blog-detail.component.html',
+  styleUrls: ['./blog-detail.component.css'],
 })
 export class BlogDetailComponent implements OnInit {
-  post: BlogPost | null = null;
+  post?: Post;
 
   constructor(
     private route: ActivatedRoute,
-    private blogService: BlogService
+    private router: Router,
+    private blog: BlogService
   ) {}
 
   ngOnInit(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.blogService.get(id).subscribe(post => this.post = post);
+    const slug = this.route.snapshot.paramMap.get('slug')!;
+    this.post = this.blog.getBySlug(slug);
+    if (!this.post) {
+      this.router.navigate(['/blog']);
+    }
+  }
+
+  edit() {
+    if (this.post) this.router.navigate(['/blog', this.post.slug, 'edit']);
+  }
+
+  delete() {
+    if (!this.post) return;
+    if (confirm('Delete this post?')) {
+      this.blog.delete(this.post.slug);
+      this.router.navigate(['/blog']);
+    }
   }
 }

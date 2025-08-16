@@ -1,9 +1,22 @@
+<div class="mx-auto max-w-3xl p-4 sm:p-6" *ngIf="post as p">
+  <div class="flex items-center justify-between gap-3">
+    <h1 class="text-3xl font-bold">{{ p.title }}</h1>
+    <div class="flex gap-2">
+      <button class="px-3 py-2 rounded-lg border" (click)="edit()">Edit</button>
+      <button class="px-3 py-2 rounded-lg border" (click)="delete()">Delete</button>
+    </div>
+  </div>
+  <p class="text-gray-500">{{ p.publishedAt | date:'medium' }}</p>
 
-<ng-container *ngIf="post as p">
-  <h2 class="text-3xl font-bold">{{ p.title }}</h2>
-  <p class="mt-4 text-gray-800 whitespace-pre-line">{{ p.content }}</p>
-</ng-container>
+  <div class="prose prose-neutral max-w-none mt-6 whitespace-pre-wrap">
+    {{ p.body }}
+  </div>
 
-<ng-template #loading>
-  <p class="text-gray-500">Loading…</p>
-</ng-template>
+  <div class="mt-6 text-sm text-gray-600">
+    <span *ngIf="p.author">By {{ p.author }}</span>
+    <ng-container *ngIf="p.tags && p.tags.length">
+      • Tags: {{ (p.tags || []).join(', ') }}
+    </ng-container>
+    <span *ngIf="p.updatedAt"> • Updated: {{ p.updatedAt | date:'medium' }}</span>
+  </div>
+</div>
