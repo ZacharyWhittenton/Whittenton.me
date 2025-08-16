@@ -35,8 +35,11 @@
     </button>
   </form>
 
-  <div class="mt-4 flex gap-2">
-    <button class="px-3 py-2 rounded border" (click)="quickMember()">Quick: Member</button>
-    <button class="px-3 py-2 rounded border" (click)="quickAdmin()">Quick: Admin</button>
+  <div class="mt-4 flex flex-wrap items-center justify-between gap-2">
+    <div class="flex gap-2">
+      <button class="px-3 py-2 rounded border" (click)="quickMember()">Quick: Member</button>
+      <button class="px-3 py-2 rounded border" (click)="quickAdmin()">Quick: Admin</button>
+    </div>
+    <a routerLink="/auth/register" class="underline">Create an account</a>
   </div>
 </div>

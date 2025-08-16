@@ -1,0 +1,56 @@
+<!-- Metrics -->
+<div class="grid gap-4 md:grid-cols-3 mb-6">
+    <div class="rounded-xl border p-4">
+      <p class="text-sm text-gray-600">Users</p>
+      <p class="text-2xl font-semibold">{{ totalUsers }}</p>
+      <p class="text-xs text-gray-500 mt-1">Admins: {{ admins }} • Members: {{ members }}</p>
+    </div>
+  
+    <div class="rounded-xl border p-4">
+      <p class="text-sm text-gray-600">Blog posts</p>
+      <p class="text-2xl font-semibold">{{ totalPosts }}</p>
+      <p class="text-xs text-gray-500 mt-1">Published: {{ publishedPosts }} • Drafts: {{ draftPosts }}</p>
+    </div>
+  
+    <div class="rounded-xl border p-4">
+      <p class="text-sm text-gray-600">Status</p>
+      <p class="text-2xl font-semibold">OK</p>
+      <p class="text-xs text-gray-500 mt-1">Local mock data</p>
+    </div>
+  </div>
+  
+  <div class="grid gap-6 md:grid-cols-2">
+    <!-- Recent posts -->
+    <section class="rounded-xl border p-4">
+      <h2 class="text-lg font-semibold mb-3">Recent posts</h2>
+      <div *ngIf="!recentPosts.length" class="text-gray-600 text-sm">No posts yet.</div>
+      <ul class="space-y-3" *ngIf="recentPosts.length">
+        <li *ngFor="let p of recentPosts" class="border rounded-lg p-3">
+          <div class="flex items-center justify-between">
+            <a [routerLink]="['/blog', p.slug]" class="font-medium underline">{{ p.title }}</a>
+            <span class="text-xs px-2 py-1 rounded-full" [class.bg-green-100]="p.published" [class.text-green-800]="p.published"
+                  [class.bg-gray-200]="!p.published" [class.text-gray-800]="!p.published">
+              {{ p.published ? 'Published' : 'Draft' }}
+            </span>
+          </div>
+          <p class="text-xs text-gray-500">{{ p.publishedAt | date:'medium' }}</p>
+          <p class="text-sm mt-2 line-clamp-2">{{ p.body }}</p>
+          <p class="text-xs text-gray-500 mt-1" *ngIf="p.tags?.length">Tags: {{ tagText(p) }}</p>
+        </li>
+      </ul>
+    </section>
+  
+    <!-- Users -->
+    <section class="rounded-xl border p-4">
+      <h2 class="text-lg font-semibold mb-3">Users</h2>
+      <div *ngIf="!users.length" class="text-gray-600 text-sm">No users.</div>
+      <ul class="divide-y" *ngIf="users.length">
+        <li *ngFor="let u of users" class="py-3">
+          <p class="font-medium">{{ u.name }}</p>
+          <p class="text-sm text-gray-600">{{ u.email }}</p>
+          <p class="text-xs mt-1">Roles: {{ u.roles.join(', ') }}</p>
+        </li>
+      </ul>
+    </section>
+  </div>
+  
