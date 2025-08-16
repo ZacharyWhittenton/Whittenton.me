@@ -3,8 +3,9 @@
     <div class="flex justify-between items-center h-16">
       <!-- Logo -->
       <div class="flex-shrink-0">
-        <a routerLink="/" class="text-3xl font-script text-gray-900 hover:text-lemonade-pink transition-colors">
-          Accelerator 2
+        <a routerLink="/" class="text-3xl font-script text-gray-900 hover:text-lemonade-pink transition-colors leading-tight">
+          <span class="block">AFL-CIOLocal 299</span>
+          <span class="block text-base">Austin, Texas</span>
         </a>
       </div>
 
@@ -31,7 +32,8 @@
              class="text-gray-700 hover:text-lemonade-pink px-3 py-2 text-sm font-medium transition-colors">
             Portfolio
           </a>
-          <!-- Blog link -->
+
+          <!-- Blog (visible to everyone) -->
           <a routerLink="/blog"
              routerLinkActive="text-lemonade-pink"
              [routerLinkActiveOptions]="{ exact: false }"
@@ -39,7 +41,7 @@
             Blog
           </a>
 
-          <!-- Scheduler link (only Admin/Member) -->
+          <!-- Scheduler (only when logged in as Admin/Member) -->
           <a *ngIf="auth.isLoggedIn && auth.hasAnyRole(['Admin','Member'])"
              routerLink="/scheduler"
              routerLinkActive="text-lemonade-pink"
@@ -146,6 +148,7 @@
            class="text-gray-700 hover:text-lemonade-pink block px-3 py-2 text-base font-medium">
           Giveback
         </a>
+
         <a routerLink="/blog"
            routerLinkActive="text-lemonade-pink"
            [routerLinkActiveOptions]="{ exact: false }"
@@ -154,7 +157,7 @@
           Blog
         </a>
 
-        <!-- Scheduler link (only Admin/Member) -->
+        <!-- Scheduler (only when logged in as Admin/Member) -->
         <a *ngIf="auth.isLoggedIn && auth.hasAnyRole(['Admin','Member'])"
            routerLink="/scheduler"
            routerLinkActive="text-lemonade-pink"
