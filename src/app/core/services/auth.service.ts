@@ -1,47 +1,69 @@
-// core/services/auth.service.ts
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
-import { tap } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
+
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  roles: string[]; // e.g. ['Admin'] or ['Member']
+  token?: string;
+}
+
+const STORAGE_KEY = 'apwu_auth_user_v1';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private readonly TOKEN_KEY = 'auth_token';
+  private _user$ = new BehaviorSubject<User | null>(loadUser());
+  user$ = this._user$.asObservable();
 
-  constructor(private http: HttpClient, private router: Router) {}
-
-  login(credentials: { email: string; password: string }): Observable<{ token: string }> {
-    return this.http.post<{ token: string }>('/api/login', credentials).pipe(
-      tap((response: { token: string }) => {
-        localStorage.setItem(this.TOKEN_KEY, response.token);
-      })
-    );
+  get user(): User | null {
+    return this._user$.getValue();
   }
+  get isLoggedIn(): boolean {
+    return !!this.user;
+  }
+
+  login(email: string, password: string, role: 'Admin' | 'Member' = 'Member'): boolean {
+    if (!email || !password) return false;
+    const mock: User = {
+      id: crypto.randomUUID(),
+      name: email.split('@')[0],
+      email,
+      roles: [role],
+      token: 'mock.' + btoa(email),
+    };
+    saveUser(mock);
+    this._user$.next(mock);
+    return true;
+  }
+
+  loginAsAdmin() { return this.login('admin@apwu.local', 'admin', 'Admin'); }
+  loginAsMember() { return this.login('member@apwu.local', 'member', 'Member'); }
 
   logout(): void {
-    localStorage.removeItem(this.TOKEN_KEY);
-    this.router.navigate(['/auth']);
+    localStorage.removeItem(STORAGE_KEY);
+    this._user$.next(null);
   }
 
-  isAuthenticated(): boolean {
-    return !!localStorage.getItem(this.TOKEN_KEY);
+  hasRole(role: string): boolean {
+    return !!this.user?.roles.includes(role);
   }
-
-  getToken(): string | null {
-    return localStorage.getItem(this.TOKEN_KEY);
+  hasAnyRole(required: string[]): boolean {
+    return required.some(r => this.hasRole(r));
   }
-
-  getUserRole(): string | null {
-  const token = this.getToken();
-  if (!token) return null;
-
-  // Simulate decoding (replace with real decoding if using JWT)
-  const payload = JSON.parse(atob(token.split('.')[1])); // this assumes JWT format
-  return payload.role || null;
+  isAdmin(): boolean {
+    return this.hasRole('Admin');
+  }
 }
 
-isAdmin(): boolean {
-  return this.getUserRole() === 'admin';
+function loadUser(): User | null {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? (JSON.parse(raw) as User) : null;
+  } catch {
+    return null;
+  }
 }
+function saveUser(u: User) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(u));
 }

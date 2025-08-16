@@ -8,6 +8,9 @@ import { ProjectsComponent } from './pages/projects/projects.component';
 import { PortfolioComponent } from './pages/portfolio/portfolio.component';
 import { ContactComponent } from './pages/contact/contact.component';
 
+import { AuthGuard } from './core/guards/auth.guard';
+import { AdminGuard } from './core/guards/admin.guard';
+
 const routes: Routes = [
   // Public pages
   { path: '', component: HomeComponent },
@@ -17,11 +20,28 @@ const routes: Routes = [
   { path: 'portfolio', component: PortfolioComponent },
   { path: 'contact', component: ContactComponent },
 
-  // Feature areas (lazy modules you already have)
+  // Root /login convenience -> /auth/login
+  { path: 'login', redirectTo: 'auth/login', pathMatch: 'full' },
+
+  // Feature areas (lazy)
   { path: 'auth', loadChildren: () => import('./features/auth/auth.module').then(m => m.AuthModule) },
+
+  // Members-only
   { path: 'blog', loadChildren: () => import('./features/blog/blog.module').then(m => m.BlogModule) },
-  { path: 'admin', loadChildren: () => import('./features/admin/admin.module').then(m => m.AdminModule) },
-  { path: 'scheduler', loadChildren: () => import('./features/scheduler/scheduler.module').then(m => m.SchedulerModule) },
+  {
+    path: 'scheduler',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./features/scheduler/scheduler.module').then(m => m.SchedulerModule),
+    runGuardsAndResolvers: 'always',
+  },
+
+  // Admin-only
+  {
+    path: 'admin',
+    canActivate: [AdminGuard],
+    loadChildren: () => import('./features/admin/admin.module').then(m => m.AdminModule),
+    runGuardsAndResolvers: 'always',
+  },
 
   // Fallback
   { path: '**', redirectTo: '' },
@@ -30,7 +50,7 @@ const routes: Routes = [
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, {
-      initialNavigation: 'enabledBlocking',   // matches your previous setup
+      initialNavigation: 'enabledBlocking',
       scrollPositionRestoration: 'enabled',
       anchorScrolling: 'enabled',
       paramsInheritanceStrategy: 'always',
