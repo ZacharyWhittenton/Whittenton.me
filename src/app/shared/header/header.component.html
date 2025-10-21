@@ -13,25 +13,18 @@
       <div class="hidden md:block">
         <div class="ml-10 flex items-baseline space-x-8">
           <!-- About -->
-          <a routerLink="/about"
+          <a routerLink="/projects"
              routerLinkActive="text-lemonade-pink"
              class="text-gray-700 hover:text-lemonade-pink px-3 py-2 text-sm font-medium transition-colors">
-            About
+            Projects & Templates
           </a>
 
           <!-- Blog (visible to everyone) -->
-          <a routerLink="/blog"
+          <a *ngIf="auth.isLoggedIn && auth.hasAnyRole(['Admin','Member'])"
+             routerLink="/blog"
              routerLinkActive="text-lemonade-pink"
-             [routerLinkActiveOptions]="{ exact: false }"
              class="text-gray-700 hover:text-lemonade-pink px-3 py-2 text-sm font-medium transition-colors">
             Blog
-          </a>
-
-          <!-- Contact -->
-          <a routerLink="/contact"
-             routerLinkActive="text-lemonade-pink"
-             class="text-gray-700 hover:text-lemonade-pink px-3 py-2 text-sm font-medium transition-colors">
-            Contact
           </a>
 
           <!-- Scheduler (only when logged in as Admin/Member) -->
@@ -42,6 +35,13 @@
             Scheduler
           </a>
 
+          <!-- Contact -->
+          <a routerLink="/contact"
+             routerLinkActive="text-lemonade-pink"
+             class="text-gray-700 hover:text-lemonade-pink px-3 py-2 text-sm font-medium transition-colors">
+            Contact
+          </a>
+          
           <!-- Logged-in: My Account -->
           <a *ngIf="auth.isLoggedIn"
              routerLink="/account"

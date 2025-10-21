@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms'; // <-- added this
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,7 +16,6 @@ import { ContactComponent } from './pages/contact/contact.component';
 import { PortfolioComponent } from './pages/portfolio/portfolio.component';
 import { ProjectsComponent } from './pages/projects/projects.component';
 import { ServicesComponent } from './pages/services/services.component';
-
 
 @NgModule({
   declarations: [
@@ -34,7 +34,8 @@ import { ServicesComponent } from './pages/services/services.component';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule // <-- added here
   ],
   providers: [],
   bootstrap: [AppComponent]
